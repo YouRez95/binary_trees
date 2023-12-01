@@ -1,25 +1,46 @@
 #include "binary_trees.h"
 
+
+int binary_tree_h(const binary_tree_t *tree);
+
+
 /**
  * binary_tree_balance - calcul the balance factor of a binary tree
  *
  * @tree: root
  *
- * Return: factor = lh - rh (+1 or -1)
+ * Return: factor
  */
 
 int binary_tree_balance(const binary_tree_t *tree)
 {
-	int factor = 0;
 
 	if (tree == NULL)
 		return (0);
 
-	factor = binary_tree_balance(tree->left) - binary_tree_balance(tree->right);
+	int leftHeight = binary_tree_h(tree->left);
+	int rightHeight = binary_tree_h(tree->right);
 
-	if (tree->right)
-		factor = factor - 1;
-	if (tree->left)
-		factor = factor + 1;
-	return (factor);
+	return (leftHeight - rightHeight);
+}
+
+/**
+ * binary_tree_h - calcul the height of a binary tree
+ *
+ * @tree: root
+ *
+ * Return: height
+ */
+
+
+
+int binary_tree_h(const binary_tree_t *tree)
+{
+	if (tree == NULL)
+		return (0);
+
+	int leftHeight = binary_tree_h(tree->left);
+	int rightHeight = binary_tree_h(tree->right);
+
+	return (leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1);
 }
